@@ -1,1 +1,1 @@
-# culture-club
+# Culture Club
