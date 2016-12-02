@@ -3,12 +3,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Social Club</title>
+    <title>@ViewBag.Title - Social & culture Club</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style type="text/css">
         table.table {
             table-layout: fixed;
+        }
+
+        .table td {
+            white-space: normal !important;
+            word-wrap: break-word;
         }
 
         dl.dl-horizontal {
@@ -21,10 +26,7 @@
             word-wrap: break-word;
         }
 
-        .table td {
-            white-space: normal !important;
-            word-wrap: break-word;
-        }
+
 
         .navbar-default {
             background-color: #f4f4f4;
@@ -195,7 +197,18 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     @If (User.IsInRole("SiteAdmin") Or User.IsInRole("Admin")) Then
-                    @<li>@Html.ActionLink("Activities", "Index", "Activities")</li>
+
+                        @<li>@Html.ActionLink("Activities", "Index", "Activities")</li>
+
+
+                    End If
+                    @if(User.IsInRole("SiteAdmin")) Then
+                        @<li>@Html.ActionLink("Teams", "Index", "Groups")</li>
+                        @<li>@Html.ActionLink("Administration", "Index", "RegisterAdmins")</li>
+
+                    End If
+                    @if (User.IsInRole("Admin")) Then
+                        @<li>@Html.ActionLink("Teams", "Index", "Groups1")</li>
                     End If
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -204,7 +217,6 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-
         <hr />
         <footer>
             <p> &copy; @DateTime.Now.Year - Social & cultural club</p>
@@ -214,11 +226,11 @@
     @Scripts.Render("~/bundles/jquery")
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript">
-        $(function () { // will trigger when the document is ready
-            $('.datepicker').datepicker(); //Initialise any date pickers
-        });
-    </script>
+    @*<script type="text/javascript">
+            $(function () { // will trigger when the document is ready
+                $('.datepicker').datepicker(); //Initialise any date pickers
+            });
+        </script>*@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required:=False)
 

@@ -23,10 +23,10 @@ End Code
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(Function(model) model.Department, htmlAttributes:= New With { .class = "control-label col-md-2" })
+            @Html.LabelFor(Function(model) model.Description, htmlAttributes:= New With { .class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(Function(model) model.Department, New With { .htmlAttributes = New With { .class = "form-control" } })
-                @Html.ValidationMessageFor(Function(model) model.Department, "", New With { .class = "text-danger" })
+                @Html.TextAreaFor(Function(model) model.Description, 10, 40, New With {.htmlAttributes = New With {.Class = "form-control"}})
+                @Html.ValidationMessageFor(Function(model) model.Description, "", New With { .class = "text-danger" })
             </div>
         </div>
 

@@ -1,30 +1,20 @@
-﻿@ModelType CultureClub.JoinViewModel
+﻿@ModelType JoinViewModel
 @Code
-ViewData("Title") = "Join"
+    ViewData("Title") = "Join"
 End Code
 
-<h2>Join</h2>
+<h2>Delete</h2>
+
 <h3>Are you sure you want to join this?</h3>
 <div>
-    <h4>Group</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Group Name
-        </dt>
-
-        <dd>
-            @*@Html.DisplayFor(Function(model) model.ClubName)*@
-        </dd>        
-
-    </dl>
+    <h4>Team</h4>
+    
     @Using (Html.BeginForm())
         @Html.AntiForgeryToken()
 
         @<div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Join" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     End Using
 </div>
-

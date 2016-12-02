@@ -11,7 +11,7 @@ End Code
 
     @<text>
     <h4>Reset your password.</h4>
-    <hr />
+ 
     @Html.ValidationSummary("", New With {.class = "text-danger"})
     @Html.HiddenFor(Function(m) m.Code)
     <div class="form-group">

@@ -7,11 +7,12 @@ End Code
 
 @Using Html.BeginForm("ChangePassword", "Manage", FormMethod.Post, New With { .class = "form-horizontal", .role = "form" })
     @Html.AntiForgeryToken()
-    
+
     @<text>
     <h4>Change Password Form</h4>
-    <hr />
-    @Html.ValidationSummary("", New With { .class = "text-danger" })
+
+
+    @Html.ValidationSummary("", New With {.class = "text-danger"})
     <div class="form-group">
         @Html.LabelFor(Function(m) m.OldPassword, New With { .class = "col-md-2 control-label" })
         <div class="col-md-10">

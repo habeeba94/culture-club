@@ -15,57 +15,18 @@ End Code
         Enhance students' skills in literary,cultural,scientific and social aspects to help them refine their personality
     </p>
 </div>
-
-@*<div class="row">*@
-@*<div class="col-md-4">
-        <h2> Design team </h2>
-        <p>
-            responsible for designing the clubus logo
-            advertising brochures and magazine designs.
-        </p>
-    </div>
-    <div class="col-md-4">
-        <h2>Documentation team </h2>
-        <p>
-            responsible for documenting all the events preparation
-            of reports meetings and the effectiveness of members.
-        </p>
-    </div>
-    <div class="col-md-4">
-        <h2>Registration team </h2>
-        <p>
-            registers the members of the club and the attendees
-            posts events workshops and prepare certificates.
-        </p>
-    </div>
-
-    <div class="col-md-4">
-        <h2>Financial transactions team  </h2>
-        <p>
-            responsible for preparing the budget and the
-            requirements of each event as well as providing sponsors.
-        </p>
-    </div>
-    <div class="col-md-4">
-        <h2>Electronic transactions team </h2>
-        <p>
-            responsible for all about the club from
-            emails instaqram twitter and other social media.
-        </p>
-    </div>
-    <div class="col-md-4">
-        <h2>Organizing & Public relations team </h2>
-        <p>
-            responsible for organizing events,equipping
-            halls,coordination among the members of the club and its requirements,set up a database for communication and other transactions within and outside the university.
-        </p>
-    </div>*@
+@*Electronic Transactions Team
+Responsible for all about the club from
+ emails instaqram twitter and other social media.
+Registration Team 
+Registers the members of the club and the attendees
+ posts events workshops and prepare certificates.*@
 <div>
     @For Each item In Model
         @<div Class="col-md-6">
             <div Class="panel panel-default center-block">
                 <div Class="panel-heading"><a href="#" class="pull-right">
-                                               <img src="~/img/group.png" /> </a> <h4>@item.Group.Name</h4></div>
+                       <img src="~/img/group.png" /> </a> <h4>@item.Group.Name</h4></div>
                 <div Class="panel-body">
 
                     <div Class="clearfix"></div>

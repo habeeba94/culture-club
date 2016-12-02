@@ -15,7 +15,14 @@ Public Class ExternalLoginConfirmationViewModel
     Public Property FirstName As String
 
 End Class
+Public Class JoinViewModel
+    <Required>
+    Public Property UserId As String
 
+    <Required>
+    Public Property GroupId As Integer
+
+End Class
 Public Class GroupActivityViewModel
     Public Property Activities As List(Of Activity)
     Public Property Group As Group
@@ -69,9 +76,11 @@ Public Class LoginViewModel
 End Class
 
 Public Class RegisterViewModel
+
     <Required>
     <EmailAddress>
     <Display(Name:="Email")>
+    <RegularExpression("^[a-zA-Z0-9._%+-]+(@student.ksu.edu.sa)$", ErrorMessage:="Registration Emile must be the university email")>
     Public Property Email As String
 
     <Required>
@@ -83,7 +92,13 @@ Public Class RegisterViewModel
     <Display(Name:="Last Name")>
     <StringLength(10)>
     Public Property LastName As String
+    <StringLength(9, MinimumLength:=9)>
+    <Display(Name:="UniversityId")>
+    Public Property UniversityId As String
 
+    <StringLength(25)>
+    <Display(Name:="Major Name")>
+    Public Property Name As String
     <Required>
     <StringLength(100, ErrorMessage:="The {0} must be at least {2} characters long.", MinimumLength:=6)>
     <DataType(DataType.Password)>
@@ -95,7 +110,6 @@ Public Class RegisterViewModel
     <Compare("Password", ErrorMessage:="The password and confirmation password do not match.")>
     Public Property ConfirmPassword As String
 End Class
-
 Public Class ResetPasswordViewModel
     <Required>
     <EmailAddress>

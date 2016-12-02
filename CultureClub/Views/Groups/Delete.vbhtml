@@ -19,11 +19,11 @@ End Code
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(Function(model) model.Department)
+            @Html.DisplayNameFor(Function(model) model.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(Function(model) model.Department)
+            @Html.DisplayFor(Function(model) model.Description)
         </dd>
 
     </dl>

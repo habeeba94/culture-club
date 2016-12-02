@@ -9,7 +9,6 @@ End Code
     @Html.AntiForgeryToken()
     @<text>
     <h4>Enter your email.</h4>
-    <hr />
     @Html.ValidationSummary("", New With {.class = "text-danger"})
     <div class="form-group">
         @Html.LabelFor(Function(m) m.Email, New With {.class = "col-md-2 control-label"})

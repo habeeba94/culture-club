@@ -14,17 +14,22 @@ Public Class ApplicationUser
     <Required, StringLength(10)>
     Public Property LastName As String
 
-    <StringLength(9, MinimumLength:=9)>
-    Public Property UniversityId As String
-    Public Property MajorId As Integer?
-
     Public Async Function GenerateUserIdentityAsync(manager As UserManager(Of ApplicationUser)) As Task(Of ClaimsIdentity)
         ' Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
         Dim userIdentity = Await manager.CreateIdentityAsync(Me, DefaultAuthenticationTypes.ApplicationCookie)
-        userIdentity.AddClaim(New Claim(type := ClaimTypes.GivenName, value :=$"{FirstName} {LastName}"))
-       
+        userIdentity.AddClaim(New Claim(type:=ClaimTypes.GivenName, value:=$"{FirstName} {LastName}"))
+
         Return userIdentity
     End Function
+
+End Class
+
+
+Public Class Student : Inherits ApplicationUser
+
+    <StringLength(9, MinimumLength:=9)>
+    Public Property UniversityId As String
+    Public Property MajorId As Integer
 
     <ForeignKey("MajorId")>
     Public Property Major As Major

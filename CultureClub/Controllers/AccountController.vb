@@ -344,8 +344,7 @@ Public Class AccountController
                 .UserName = model.Email,
                 .Email = model.Email,
                 .FirstName = model.FirstName,
-                .LastName = model.LastName,
-                .UniversityId = model.UniversityId
+                .LastName = model.LastName
             }
             Try
                 Dim result = Await UserManager.CreateAsync(userInfo)

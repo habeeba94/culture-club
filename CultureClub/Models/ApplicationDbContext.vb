@@ -19,5 +19,6 @@ Public Class ApplicationDbContext
     Public Overridable Property Groups As DbSet(Of Group)
     Public Overridable Property Majors As DbSet(Of Major)
     Public Overridable Property ActivityGroups As DbSet(Of ActivityGroup)
+    Public Overridable Property Students As DbSet(Of Student)
 
 End Class

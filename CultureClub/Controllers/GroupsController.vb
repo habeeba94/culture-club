@@ -1,71 +1,90 @@
 ﻿Imports System.Data.Entity
+Imports System.Threading.Tasks
 Imports System.Net
+Imports Microsoft.AspNet.Identity
 
 Namespace Controllers
     Public Class GroupsController
-        Inherits Controller
+        Inherits System.Web.Mvc.Controller
 
-        Private ReadOnly _db As New ApplicationDbContext
+        Private db As New ApplicationDbContext
 
-        Function Index() As ActionResult
-            '
-            Return View(_db.Groups.ToList())
+        ' GET: Groups
+        Async Function Index() As Task(Of ActionResult)
+            Return View(Await db.Groups.ToListAsync())
+        End Function
+
+        <Authorize(Roles:="Student, StudentAdmin")>
+        Function Join(ByVal GroupId As Integer) As ActionResult
+            'ViewBag.G = New SelectList(db.Users.Select(Function(e) New With {
+            '    .UserId = e.Id,
+            '    .Name = $"{e.FirstName} {e.LastName}"
+            '}), "UserId", "Name")
+            Return View(New JoinViewModel With {
+                         .UserId = User.Identity.GetUserId(),
+                         .GroupId = GroupId
+                      })
+        End Function
+
+        <HttpPost, ValidateAntiForgeryToken()>
+        Async Function Join(<Bind(Include:="UserId,GroupId")> ByVal model As JoinViewModel) As Task(Of ActionResult)
+            If ModelState.IsValid Then
+                db.UserGroups.Add(New UserGroup With {
+                    .GroupId = model.GroupId,
+                    .UserId = model.UserId
+                })
+                Await db.SaveChangesAsync()
+                Return RedirectToAction("Index")
+            End If
+            Return View(model)
+        End Function
+
+
+
+        'Get Members testDrive
+        Async Function Member() As Task(Of ActionResult)
+            Return View(Await db.Users.ToListAsync())
         End Function
 
         ' GET: Groups/Details/5
-        Function Details(ByVal id As Integer?) As ActionResult
+        Async Function Details(ByVal id As Integer?) As Task(Of ActionResult)
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
-            Dim group As Group = _db.Groups.Find(id)
+            Dim group As Group = Await db.Groups.FindAsync(id)
             If IsNothing(group) Then
                 Return HttpNotFound()
             End If
             Return View(group)
         End Function
 
-        ' GET: Groups/Join
-        Function Join(name As String) As ActionResult
-            Dim model = New JoinViewModel()
-            model.GroupName = name
-            Return View(model)
-        End Function
-
-        ' POST: Groups/Join
-        'To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        'more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        <HttpPost()>
-        <ValidateAntiForgeryToken()>
-        Function Join(model As JoinViewModel) As ActionResult
-
-            Return View()
-        End Function
-
         ' GET: Groups/Create
+        <Authorize(Roles:="Admin")>
         Function Create() As ActionResult
             Return View()
         End Function
 
         ' POST: Groups/Create
-        'To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        'To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         'more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        <HttpPost()>
+        <HttpPost(), Authorize(Roles:="Admin")>
         <ValidateAntiForgeryToken()>
-        Function Create(<Bind(Include:="Id,Name,Department")> ByVal group As Group) As ActionResult
+        Async Function Create(<Bind(Include:="Id,Name,Description")> ByVal group As Group) As Task(Of ActionResult)
             If ModelState.IsValid Then
-                _db.Groups.Add(group)
-                _db.SaveChanges()
+                db.Groups.Add(group)
+                Await db.SaveChangesAsync()
                 Return RedirectToAction("Index")
             End If
             Return View(group)
         End Function
 
         ' GET: Groups/Edit/5
-        Function Edit(ByVal id As Integer?) As ActionResult
+        <Authorize(Roles:="Admin")>
+        Async Function Edit(ByVal id As Integer?) As Task(Of ActionResult)
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
-            Dim group As Group = _db.Groups.Find(id)
+            Dim group As Group = Await db.Groups.FindAsync(id)
             If IsNothing(group) Then
                 Return HttpNotFound()
             End If
@@ -73,25 +92,27 @@ Namespace Controllers
         End Function
 
         ' POST: Groups/Edit/5
-        'To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        'To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         'more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        <HttpPost()>
+        <HttpPost(), Authorize(Roles:="Admin")>
         <ValidateAntiForgeryToken()>
-        Function Edit(<Bind(Include:="Id,Name,Department")> ByVal group As Group) As ActionResult
+        Async Function Edit(<Bind(Include:="Id,Name,Description")> ByVal group As Group) As Task(Of ActionResult)
             If ModelState.IsValid Then
-                _db.Entry(group).State = EntityState.Modified
-                _db.SaveChanges()
+                db.Entry(group).State = EntityState.Modified
+                Await db.SaveChangesAsync()
                 Return RedirectToAction("Index")
             End If
             Return View(group)
         End Function
 
         ' GET: Groups/Delete/5
-        Function Delete(ByVal id As Integer?) As ActionResult
+
+        <Authorize(Roles:="Admin")>
+        Async Function Delete(ByVal id As Integer?) As Task(Of ActionResult)
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
-            Dim group As Group = _db.Groups.Find(id)
+            Dim group As Group = Await db.Groups.FindAsync(id)
             If IsNothing(group) Then
                 Return HttpNotFound()
             End If
@@ -100,18 +121,18 @@ Namespace Controllers
 
         ' POST: Groups/Delete/5
         <HttpPost()>
-        <ActionName("Delete")>
+        <ActionName("Delete"), Authorize(Roles:="Admin")>
         <ValidateAntiForgeryToken()>
-        Function DeleteConfirmed(ByVal id As Integer) As ActionResult
-            Dim group As Group = _db.Groups.Find(id)
-            _db.Groups.Remove(group)
-            _db.SaveChanges()
+        Async Function DeleteConfirmed(ByVal id As Integer) As Task(Of ActionResult)
+            Dim group As Group = Await db.Groups.FindAsync(id)
+            db.Groups.Remove(group)
+            Await db.SaveChangesAsync()
             Return RedirectToAction("Index")
         End Function
 
         Protected Overrides Sub Dispose(ByVal disposing As Boolean)
             If (disposing) Then
-                _db.Dispose()
+                db.Dispose()
             End If
             MyBase.Dispose(disposing)
         End Sub

@@ -221,6 +221,10 @@
       <DependentUpon>201611221843345_AGDate.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201611221843345_AGDate.vb" />
+    <Compile Include="Migrations\201612021035290_student.Designer.vb">
+      <DependentUpon>201612021035290_student.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612021035290_student.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\AccountViewModels.vb" />
     <Compile Include="Models\Activity.vb" />
@@ -228,7 +232,6 @@
     <Compile Include="Models\ApplicationUser.vb" />
     <Compile Include="Models\Attendee.vb" />
     <Compile Include="Models\Group.vb" />
-    <Compile Include="Models\JoinViewModel.vb" />
     <Compile Include="Models\Major.vb" />
     <Compile Include="Models\ManageViewModels.vb" />
     <Compile Include="Models\ActivityGroup.vb" />
@@ -257,12 +260,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611171021590_edit.resx">
       <DependentUpon>201611171021590_edit.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611211831026_activity-group.resx">
       <DependentUpon>201611211831026_activity-group.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611221843345_AGDate.resx">
       <DependentUpon>201611221843345_AGDate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612021035290_student.resx">
+      <DependentUpon>201612021035290_student.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

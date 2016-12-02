@@ -8,6 +8,7 @@
              .Activities = e.Select(Function(i) i.Activity).ToList()
           }).ToList()
         Return View(groups)
+
     End Function
 
     Function About() As ActionResult
