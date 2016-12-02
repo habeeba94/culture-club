@@ -197,19 +197,12 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     @If (User.IsInRole("SiteAdmin") Or User.IsInRole("Admin")) Then
-
                         @<li>@Html.ActionLink("Activities", "Index", "Activities")</li>
-
-
                     End If
-                    @if(User.IsInRole("SiteAdmin")) Then
-                        @<li>@Html.ActionLink("Teams", "Index", "Groups")</li>
-                        @<li>@Html.ActionLink("Administration", "Index", "RegisterAdmins")</li>
-
+                    @If (User.IsInRole("Student") Or User.IsInRole("StudentAdmin")) Then
+                        @<li>@Html.ActionLink("Teams", "Join", "Groups")</li>
                     End If
-                    @if (User.IsInRole("Admin")) Then
-                        @<li>@Html.ActionLink("Teams", "Index", "Groups1")</li>
-                    End If
+                    <li>@Html.ActionLink("Teams", "Index", "Groups")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

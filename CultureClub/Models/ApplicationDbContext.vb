@@ -7,6 +7,7 @@ Public Class ApplicationDbContext
     Inherits IdentityDbContext(Of ApplicationUser)
     Public Sub New()
         MyBase.New("DefaultConnection", throwIfV1Schema:=False)
+        Configuration.LazyLoadingEnabled = False
     End Sub
 
     Public Shared Function Create() As ApplicationDbContext
@@ -15,10 +16,9 @@ Public Class ApplicationDbContext
 
     Public Overridable Property Activities As DbSet(Of Activity)
     Public Overridable Property Attendees As DbSet(Of Attendee)
-    Public Overridable Property UserGroups As DbSet(Of UserGroup)
+    Public Overridable Property StudentGroups As DbSet(Of StudentGroup)
     Public Overridable Property Groups As DbSet(Of Group)
     Public Overridable Property Majors As DbSet(Of Major)
     Public Overridable Property ActivityGroups As DbSet(Of ActivityGroup)
     Public Overridable Property Students As DbSet(Of Student)
-
 End Class

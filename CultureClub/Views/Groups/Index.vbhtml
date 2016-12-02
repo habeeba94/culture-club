@@ -28,7 +28,7 @@ End Code
             @Html.DisplayFor(Function(modelItem) item.Description)
         </td>
         <td>
-            @Html.ActionLink("Members", "Details", New With {.id = item.Id})|
+            @Html.ActionLink("Members", "Members", New With {.GroupId = item.Id})|
             @Html.ActionLink("Join Team", "Join", New With {.GroupId = item.Id}) |
             @Html.ActionLink("Edit", "Edit", New With {.id = item.Id}) |
             @Html.ActionLink("Delete", "Delete", New With {.id = item.Id})

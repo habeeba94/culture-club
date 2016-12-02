@@ -17,11 +17,7 @@ Public Class ExternalLoginConfirmationViewModel
 End Class
 Public Class JoinViewModel
     <Required>
-    Public Property UserId As String
-
-    <Required>
     Public Property GroupId As Integer
-
 End Class
 Public Class GroupActivityViewModel
     Public Property Activities As List(Of Activity)

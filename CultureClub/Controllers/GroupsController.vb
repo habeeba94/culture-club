@@ -20,18 +20,15 @@ Namespace Controllers
             '    .UserId = e.Id,
             '    .Name = $"{e.FirstName} {e.LastName}"
             '}), "UserId", "Name")
-            Return View(New JoinViewModel With {
-                         .UserId = User.Identity.GetUserId(),
-                         .GroupId = GroupId
-                      })
+            Return View()
         End Function
 
         <HttpPost, ValidateAntiForgeryToken()>
-        Async Function Join(<Bind(Include:="UserId,GroupId")> ByVal model As JoinViewModel) As Task(Of ActionResult)
+        Async Function Join(ByVal model As JoinViewModel) As Task(Of ActionResult)
             If ModelState.IsValid Then
-                db.UserGroups.Add(New UserGroup With {
+                db.StudentGroups.Add(New StudentGroup With {
                     .GroupId = model.GroupId,
-                    .UserId = model.UserId
+                    .UserId = User.Identity.GetUserId()
                 })
                 Await db.SaveChangesAsync()
                 Return RedirectToAction("Index")
@@ -42,8 +39,8 @@ Namespace Controllers
 
 
         'Get Members testDrive
-        Async Function Member() As Task(Of ActionResult)
-            Return View(Await db.Users.ToListAsync())
+        Function Members(ByVal GroupId As Integer) As ActionResult
+            Return View(db.StudentGroups.Where(Function(e) e.GroupId = GroupId).Include(Function(e) e.Student.Major).Select(Function(e) e.Student).ToList())
         End Function
 
         ' GET: Groups/Details/5
